@@ -1,0 +1,62 @@
+<ejs-schedule #scheduleObj width='100%' height='520px' (actionBegin)="onActionBegin($event)"  (navigating)="onNavigating($event)"
+     [timeScale]="timeScale" [selectedDate]="selectedDate" startHour="08:00"
+     endHour="16:00"    [group]="group" [eventSettings]="eventSettings" [currentView]="currentView" (eventRendered)="onEventRendered($event)" (popupOpen) ="onPopupOpen($event)">
+     <e-resources>
+     <e-resource
+       field="EmployeeId"
+       title="Employees"
+       name="Employee"
+       [dataSource]="employeeDataSource"
+       textField="Text"
+       idField="Id"
+       groupIDField="GroupId"
+       colorField="Color"
+     >
+     </e-resource>
+   </e-resources>
+
+   <ng-template #resourceHeaderTemplate let-data>
+     <div class="template-wrap">
+       <div class="employee-category">
+         <div>
+           <img
+             src="https://ej2.syncfusion.com/angular/demos/assets/schedule/images/{{
+               getEmployeeImageName(data)
+             }}.png"
+             class="employee-image"
+           />
+         </div>
+         <div class="employee-name">{{ getEmployeeName(data) }}</div>
+         <div class="employee-designation">
+           {{ getEmployeeDesignation(data) }}
+         </div>
+       </div>
+     </div>
+   </ng-template>
+   <ng-template #eventSettingsTemplate let-data>
+     <div class="template-wrap">
+       <div class="subject">{{ data.Subject }}</div>
+     </div>
+   </ng-template>
+   <e-header-rows>
+    <e-header-row option="Date"></e-header-row>
+  </e-header-rows>
+  <e-views>
+    <e-view
+      option="TimelineDay"
+      [allowVirtualScrolling]="virtualScroll"
+      displayName="Day"
+    ></e-view>
+    <e-view
+      option="TimelineWeek"
+      [allowVirtualScrolling]="virtualScroll"
+      displayName="Week"
+    ></e-view>
+    <e-view
+      option="TimelineMonth"
+      [allowVirtualScrolling]="virtualScroll"
+      displayName="Month"
+    ></e-view>
+  </e-views>
+  
+  </ejs-schedule>

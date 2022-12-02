@@ -1,5 +1,5 @@
 
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ScheduleComponent, EventSettingsModel, DayService, WeekService, WorkWeekService, TimelineViewsService, MonthService, View, AgendaService, ActionEventArgs, actionBegin, DragAndDropService, PopupOpenEventArgs, EventRenderedArgs, popupOpen, RecurrenceEditor, CurrentAction, CallbackFunction, CellClickEventArgs, EJ2Instance, ResourceDetails, PopupCloseEventArgs, NavigatingEventArgs, TimeScaleModel, GroupModel, } from '@syncfusion/ej2-angular-schedule';
 import { Button, ButtonComponent, ChangeEventArgs, CheckBox, CheckBoxComponent, ClickEventArgs, RadioButton } from '@syncfusion/ej2-angular-buttons';
 import { CheckBoxModule } from '@syncfusion/ej2-angular-buttons';
@@ -25,13 +25,15 @@ import { schedulermodel } from './schedulermodel';
   encapsulation: ViewEncapsulation.None
 
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
 
   constructor(public service: myserviceService) {
   }
-  @ViewChild("scheduleObj")
-  public scheduleObj!: ScheduleComponent;
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+  
   @ViewChild("halfday")
   public halfdayObj!: CheckBoxComponent;
   @ViewChild("addButton")
@@ -60,10 +62,10 @@ export class AppComponent {
 
     enableTooltip: true
   };
-  public group: GroupModel = {
-    enableCompactView: true,
-    resources: ['Employee'],
-  };
+  // public group: GroupModel = {
+  //   enableCompactView: true,
+  //   resources: ['Employee'],
+  // };
 
   public employeeDataSource: Record<string, any>[] = [
     { Text: 'Alice', Id: 1, GroupId: 1, Color: '#bbdc00', Designation: 'Service Administrator' },
@@ -470,10 +472,12 @@ export class AppComponent {
 
 
 
-  ngoninIt() {
+  ngoninIt(): void {
     this.getschedule;
   }
-  public getschedule() {
+  @ViewChild('scheduleObj')
+  public scheduleObj!: ScheduleComponent;
+   getschedule() {
     this.service.getSchedule().subscribe(res => {
         let data: any = res;
         this.getSchedulerView = [];
@@ -506,7 +510,7 @@ export class AppComponent {
         // }
         this.scheduleObj.eventSettings.dataSource = this.getSchedulerView;
      
-        // this.scheduleObj.refreshEvents();
+        this.scheduleObj.refreshEvents();
         console.log(this.eventSettings.dataSource);
         console.log(this.getSchedulerView);
 

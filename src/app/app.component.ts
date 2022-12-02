@@ -490,161 +490,157 @@ export class AppComponent implements OnInit {
             IsAllDay: data[x[0]].isAllDay,
             Subject: data[x[0]].subject,
             Description: data[x[0]].description,
-            Location: data[x[0]].location
+            Location: data[x[0]].location,
+            HalfDay: data[x[0]].halfDay,
+            UserId: data[x[0]].userId,
+            Username: data[x[0]].username,
+            RoleId: data[x[0]].roleId,
+            Rolename: data[x[0]].rolename,
+            Imageurl: data[x[0]].imageurl
+
           });
         })
-        // for (let i = 0; i < data.length; i++) {
-
-        //   this.getSchedulerView.push({
-        //     Id: data[i].id,
-        //     StartTime: data[i].startTime,
-        //     EndTime: data[i].endTime,
-        //     IsAllDay: data[i].isAllDay,
-        //     Subject: data[i].subject,
-        //     Description: data[i].description,
-        //     Location: data[i].location,
-
-
-        //   })
-
-        // }
+      
+      
         this.scheduleObj.eventSettings.dataSource = this.getSchedulerView;
-     
-        this.scheduleObj.refreshEvents();
-        console.log(this.eventSettings.dataSource);
-        console.log(this.getSchedulerView);
-
-
-        console.log("success!");
-      },
-      err => { console.log(err); }
+    
+      }
     )
   }
 
-  scheduler!: schedulermodel;
-  public onActionBegin(args: any): void {
+  // scheduler!: schedulermodel;
+  // public onActionBegin(args: any): void {
 
-    console.log("2" + args.addedRecords == null);
-    console.log("4" + args.changedRecords != null);
+  //   console.log("2" + args.addedRecords == null);
+  //   console.log("4" + args.changedRecords != null);
 
-    if (args.requestType == "toolbarItemRendering" && args.name == 'actionBegin') {
-      this.getschedule();
-    }
-    else if (args.requestType == 'eventCreate' && args.name == 'actionBegin') {
-      console.log(args.data[0]);
+  //   if (args.requestType == "toolbarItemRendering" && args.name == 'actionBegin') {
+  //     this.getschedule();
+  //   }
+  //   else if (args.requestType == 'eventCreate' && args.name == 'actionBegin') {
+  //     console.log(args.data[0]);
       
-      var abc: schedulermodel = {
-        "description": args.data[0].Description,
-        "id": args.data[0].Id,
-        "subject": args.data[0].Subject,
-        "location": args.data[0].Location,
-        "endTime": args.data[0].EndTime,
-        "startTime": args.data[0].StartTime,
-        "isAllDay": args.data[0].IsAllDay,
-        "halfDay":"PM",
-        "employeeId":10
-      }
-
-      this.service.postSchedule(abc).subscribe();
-
-    }
-
-    else if (args.requestType == 'eventChange' && args.name == 'actionBegin' && args.changedRecords != null) {
-      console.log(args);
+  //     var abc: schedulermodel = {
+  //       "description": args.data[0].Description,
+  //       "id": args.data[0].Id,
+  //       "subject": args.data[0].Subject,
+  //       "location": args.data[0].Location,
+  //       "endTime": args.data[0].EndTime,
+  //       "startTime": args.data[0].StartTime,
+  //       "isAllDay": args.data[0].IsAllDay,
+  //       "halfDay": args.data[0].halfDay,
+  //       "userId": args.data[0].userId,
+  //       "username": args.data[0].username,
+  //       "roleId": args.data[0].roleId,
+  //       "rolename": args.data[0].rolename,
+  //       "imageurl": args.data[0].imageurl
       
-      var abc: schedulermodel = {
-        "description": args.data.Description,
-        "id": args.data.Id,
-        "subject": args.data.Subject,
-        "location": args.data.Location,
-        "endTime": args.data.EndTime,
-        "startTime": args.data.StartTime,
-        "isAllDay": args.data.IsAllDay,
-        "halfDay":"PM",
-        "employeeId":10
-      }
-      this.service.updateSchedule(args.data.Id,abc).subscribe(result=>{
-        console.log(result);
+  //     }
+
+  //     this.service.postSchedule(abc).subscribe();
+
+  //   }
+
+  //   else if (args.requestType == 'eventChange' && args.name == 'actionBegin' && args.changedRecords != null) {
+  //     console.log(args);
+      
+  //     var abc: schedulermodel = {
+  //       "description": args.data.Description,
+  //       "id": args.data.Id,
+  //       "subject": args.data.Subject,
+  //       "location": args.data.Location,
+  //       "endTime": args.data.EndTime,
+  //       "startTime": args.data.StartTime,
+  //       "isAllDay": args.data.IsAllDay,
+  //       "halfDay": args.data.halfDay,
+  //       "userId": args.data.userId,
+  //       "username": args.data.username,
+  //       "roleId": args.data.roleId,
+  //       "rolename": args.data.rolename,
+  //       "imageurl": args.data.imageurl
+  //     }
+  //     this.service.updateSchedule(args.data.Id,abc).subscribe(result=>{
+  //       console.log(result);
         
-      })
-    }
+  //     })
+  //   }
 
 
-    else if (args.requestType == "eventRemove" && args.name == 'actionBegin') {
-      this.service.deleteSchedule(args.data[0].Id).subscribe(
-        res => {
-          console.log("success!");
-        },
-        err => { console.log(err); }
-      )
-    }
-  }
+  //   else if (args.requestType == "eventRemove" && args.name == 'actionBegin') {
+  //     this.service.deleteSchedule(args.data[0].Id).subscribe(
+  //       res => {
+  //         console.log("success!");
+  //       },
+  //       err => { console.log(err); }
+  //     )
+  //   }
+  // }
 
 
 
 
-  private onchange1() {
-    (document.querySelector('#StartTime') as any).ej2_instances[0].format = "M/dd/yy h:mm a";
-    (document.querySelector('#EndTime') as any).ej2_instances[0].format = "M/dd/yy h:mm a";
-    (document.querySelector('#StartTime') as any).ej2_instances[0].value.setHours(8, 0, 0);
-    (document.querySelector('#EndTime') as any).ej2_instances[0].value.setHours(12, 0, 0);
-    (document.querySelector('#StartTime') as any).ej2_instances[0].dataBind();
-    console.log("working")
-  }
+  // private onchange1() {
+  //   (document.querySelector('#StartTime') as any).ej2_instances[0].format = "M/dd/yy h:mm a";
+  //   (document.querySelector('#EndTime') as any).ej2_instances[0].format = "M/dd/yy h:mm a";
+  //   (document.querySelector('#StartTime') as any).ej2_instances[0].value.setHours(8, 0, 0);
+  //   (document.querySelector('#EndTime') as any).ej2_instances[0].value.setHours(12, 0, 0);
+  //   (document.querySelector('#StartTime') as any).ej2_instances[0].dataBind();
+  //   console.log("working")
+  // }
 
-  private onchange2() {
-    console.log((document.querySelector('#StartTime') as any).ej2_instances[0].value);
-    (document.querySelector('#StartTime') as any).ej2_instances[0].format = "MM/dd/yy h:mm a";
-    (document.querySelector('#StartTime') as any).ej2_instances[0].format = "M/dd/yy h:mm a";
-    (document.querySelector('#EndTime') as any).ej2_instances[0].format = "MM/dd/yy h:mm a";
-    (document.querySelector('#EndTime') as any).ej2_instances[0].format = "M/dd/yy h:mm a";
-    (document.querySelector('#StartTime') as any).ej2_instances[0].value.setHours(2, 0, 0);
-    (document.querySelector('#EndTime') as any).ej2_instances[0].value.setHours(18, 0, 0);
-    (document.querySelector('#StartTime') as any).ej2_instances[0].dataBind();
-    console.log("working1")
-    console.log((document.querySelector('#StartTime') as any).ej2_instances[0].value);
-  }
+  // private onchange2() {
+  //   console.log((document.querySelector('#StartTime') as any).ej2_instances[0].value);
+  //   (document.querySelector('#StartTime') as any).ej2_instances[0].format = "MM/dd/yy h:mm a";
+  //   (document.querySelector('#StartTime') as any).ej2_instances[0].format = "M/dd/yy h:mm a";
+  //   (document.querySelector('#EndTime') as any).ej2_instances[0].format = "MM/dd/yy h:mm a";
+  //   (document.querySelector('#EndTime') as any).ej2_instances[0].format = "M/dd/yy h:mm a";
+  //   (document.querySelector('#StartTime') as any).ej2_instances[0].value.setHours(2, 0, 0);
+  //   (document.querySelector('#EndTime') as any).ej2_instances[0].value.setHours(18, 0, 0);
+  //   (document.querySelector('#StartTime') as any).ej2_instances[0].dataBind();
+  //   console.log("working1")
+  //   console.log((document.querySelector('#StartTime') as any).ej2_instances[0].value);
+  // }
 
-  public onAddClick(): void {
-    this.onCloseClick();
-    const data: Object = this.scheduleObj.getCellDetails(this.scheduleObj.getSelectedElements()) as Object;
-    const eventData: { [key: string]: Object } = this.scheduleObj.eventWindow.getObjectFromFormData('e-quick-popup-wrapper');
-    this.scheduleObj.eventWindow.convertToEventData(data as { [key: string]: Object }, eventData);
-    eventData['Id'] = this.scheduleObj.eventBase.getEventMaxID() as number + 1;
-    this.scheduleObj.addEvent(eventData);
-  }
-  public onEditClick(args: any): void {
-    if (this.selectionTarget) {
-      let eventData: { [key: string]: Object } = this.scheduleObj.getEventDetails(this.selectionTarget) as { [key: string]: Object };
-      let currentAction: CurrentAction = 'Save';
-      if (!isNullOrUndefined(eventData['RecurrenceRule']) && eventData['RecurrenceRule'] !== '') {
-        if (args.target.classList.contains('e-edit-series')) {
-          currentAction = 'EditSeries';
-          eventData = this.scheduleObj.eventBase.getParentEvent(eventData, true);
-        } else {
-          currentAction = 'EditOccurrence';
-        }
-      }
-      this.scheduleObj.openEditor(eventData, currentAction);
-    }
-  }
-  public onDeleteClick(args: any): void {
-    this.onCloseClick();
-    if (this.selectionTarget) {
-      const eventData: { [key: string]: Object } = this.scheduleObj.getEventDetails(this.selectionTarget) as { [key: string]: Object };
-      let currentAction: CurrentAction | undefined = undefined;
-      if (!isNullOrUndefined(eventData['RecurrenceRule']) && eventData['RecurrenceRule'] !== '') {
-        currentAction = args.target.classList.contains('e-delete-series') ? 'DeleteSeries' : 'DeleteOccurrence';
-      }
-      this.scheduleObj.deleteEvent(eventData, currentAction);
-    }
-  }
-  public onCloseClick(): void {
-    this.scheduleObj.quickPopup.quickPopupHide();
-  }
-  public onCustomClick(): void {
-    alert("customized icon triggered");
-  }
+  // public onAddClick(): void {
+  //   this.onCloseClick();
+  //   const data: Object = this.scheduleObj.getCellDetails(this.scheduleObj.getSelectedElements()) as Object;
+  //   const eventData: { [key: string]: Object } = this.scheduleObj.eventWindow.getObjectFromFormData('e-quick-popup-wrapper');
+  //   this.scheduleObj.eventWindow.convertToEventData(data as { [key: string]: Object }, eventData);
+  //   eventData['Id'] = this.scheduleObj.eventBase.getEventMaxID() as number + 1;
+  //   this.scheduleObj.addEvent(eventData);
+  // }
+  // public onEditClick(args: any): void {
+  //   if (this.selectionTarget) {
+  //     let eventData: { [key: string]: Object } = this.scheduleObj.getEventDetails(this.selectionTarget) as { [key: string]: Object };
+  //     let currentAction: CurrentAction = 'Save';
+  //     if (!isNullOrUndefined(eventData['RecurrenceRule']) && eventData['RecurrenceRule'] !== '') {
+  //       if (args.target.classList.contains('e-edit-series')) {
+  //         currentAction = 'EditSeries';
+  //         eventData = this.scheduleObj.eventBase.getParentEvent(eventData, true);
+  //       } else {
+  //         currentAction = 'EditOccurrence';
+  //       }
+  //     }
+  //     this.scheduleObj.openEditor(eventData, currentAction);
+  //   }
+  // }
+  // public onDeleteClick(args: any): void {
+  //   this.onCloseClick();
+  //   if (this.selectionTarget) {
+  //     const eventData: { [key: string]: Object } = this.scheduleObj.getEventDetails(this.selectionTarget) as { [key: string]: Object };
+  //     let currentAction: CurrentAction | undefined = undefined;
+  //     if (!isNullOrUndefined(eventData['RecurrenceRule']) && eventData['RecurrenceRule'] !== '') {
+  //       currentAction = args.target.classList.contains('e-delete-series') ? 'DeleteSeries' : 'DeleteOccurrence';
+  //     }
+  //     this.scheduleObj.deleteEvent(eventData, currentAction);
+  //   }
+  // }
+  // public onCloseClick(): void {
+  //   this.scheduleObj.quickPopup.quickPopupHide();
+  // }
+  // public onCustomClick(): void {
+  //   alert("customized icon triggered");
+  // }
 }
 
 

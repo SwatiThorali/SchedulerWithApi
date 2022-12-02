@@ -5,7 +5,14 @@ export class schedulermodel {
     location!: string;
     startTime!: Date;
     endTime!: Date;
-    isAllDay!: true
-    halfDay!: string
-    employeeId!: number
+    isAllDay!: boolean;
+    halfDay!: string;
+    userId!: number;
+    username!: string;
+    roleId!: number;
+    rolename!: string;
+    imageurl!: string;
+
+  
+    
 }

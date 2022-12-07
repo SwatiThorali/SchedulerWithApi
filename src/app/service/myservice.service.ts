@@ -32,6 +32,10 @@ export class myserviceService {
     return this.http.get(this.rootURL + '/Schedules', this.httpOptions);
   }
 
+  getUsers() {
+    return this.http.get(this.rootURL + '/Schedules/GetUsers', this.httpOptions);
+  }
+
   postSchedule(record: any) {
     console.log(record);
     
@@ -47,12 +51,13 @@ export class myserviceService {
     return this.http.delete(this.rootURL + '/Schedules/'+ id , this.httpOptions);
   }
 
-  updateSchedule(id: any , record: any) {
+  updateSchedule(record: any) {
     //  record.StartTime.setHours(record.StartTime.getHours() + 5);
     //  record.StartTime.setMinutes(record.StartTime.getMinutes() + 30);
     //  record.EndTime.setHours(record.EndTime.getHours() + 5);
     //  record.EndTime.setMinutes(record.EndTime.getMinutes() + 30);
+   console.log(this.rootURL + '/Schedules/edit');
    
-   return this.http.put(this.rootURL + '/Schedules/' + id,  record , this.httpOptions);
+   return this.http.put(this.rootURL + '/Schedules/edit',  record , this.httpOptions);
   }
 }

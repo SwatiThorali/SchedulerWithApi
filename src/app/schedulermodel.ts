@@ -12,7 +12,21 @@ export class schedulermodel {
     roleId!: number;
     rolename!: string;
     imageurl!: string;
+    employeeId!: number;
 
-  
-    
+
+}
+
+export class insertmodel
+{
+    id!: number;
+    subject!: string;
+    description!: string;
+    location!: string;
+    startTime!: string;
+    endTime!: string;
+    isAllDay!: boolean;
+    halfDay!: string;
+    employeeId!: number;
+ 
 }
